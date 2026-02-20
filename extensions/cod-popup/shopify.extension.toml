@@ -1,0 +1,10 @@
+name = "COD Popup"
+type = "theme_app_extension"
+uid = "88dc25fb-1dee-b682-599f-37a61faa43305c8945a5"
+extension_points = ["theme_app_extension.block"]
+
+[metadata]
+# optional metadata
+
+[blocks]
+files = ["blocks/popup.liquid"]

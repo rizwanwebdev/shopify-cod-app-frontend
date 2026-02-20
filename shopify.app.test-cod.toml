@@ -1,0 +1,27 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "280d4436ee83a44b61388149ce9a37be"
+name = "test-cod"
+application_url = "https://code-backend-azure.vercel.app"
+embedded = true
+
+[webhooks]
+api_version = "2026-01"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers,write_customers,read_orders,write_orders,read_products,write_products"
+
+optional_scopes = [ ]
+use_legacy_install_flow = false
+
+[auth]
+redirect_urls = ["https://code-backend-azure.vercel.app"]
+
+[app_proxy]
+url = "https://code-backend-azure.vercel.app/api/create-order"
+subpath = "cod"
+prefix = "apps"
+
+[build]
+automatically_update_urls_on_dev = true
