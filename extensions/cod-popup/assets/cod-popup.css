@@ -1,3 +1,18 @@
+.product__info-wrapper,
+.product__info-wrapper.grid__item.scroll-trigger {
+  all: unset !important;
+}
+body {
+  overflow-x: hidden !important;
+}
+.font-semi {
+  font-weight: 500;
+}
+.larger {
+  font-weight: 600;
+  color: #000;
+}
+
 .message-popup {
   position: fixed;
   top: 20px;
@@ -19,7 +34,6 @@ input:focus-visible {
 }
 
 .message-box {
-  background: #333;
   padding: 14px 18px;
   border-radius: 8px;
   min-width: 250px;
@@ -43,7 +57,7 @@ input:focus-visible {
 
 .message-box.error {
   background: #ef4444;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .message-box.error button {
@@ -114,9 +128,9 @@ input:focus-visible {
 /* CONTENT BOX */
 .cod-popup-content {
   background: #fff;
-  padding: 25px;
+  padding: 8px 16px;
   border-radius: 12px;
-  width: 95%;
+  width: 100%;
   max-width: fit-content;
   display: flex;
   flex-direction: column;
@@ -131,7 +145,7 @@ input:focus-visible {
 #submitBtn {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 16px;
   margin-block: 1rem;
@@ -141,18 +155,18 @@ input:focus-visible {
 }
 #submitBtn:hover svg,
 #buyNowBtn svg {
-  stroke: var(--color-netural);
+  stroke: #fff;
   transition: all 0.3s;
 }
 #submitBtn svg,
 #buyNowBtn:hover svg {
-  stroke: var(--color-primary);
+  stroke: #7775d2;
 }
 
 .cod-popup-content form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .popup-title {
@@ -160,7 +174,7 @@ input:focus-visible {
   flex-direction: row;
   align-items: center;
   gap: 16px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid #c6d5e6;
 }
 .popup-title h3 {
   flex: 1;
@@ -170,52 +184,52 @@ input:focus-visible {
   align-items: center;
   text-align: center;
 }
+.popup-details {
+  border: 2px solid #c6d5e6;
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 .popup-product {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  padding: 8px;
-  border: 2px solid var(--color-border);
-  border-radius: 8px;
 }
 
 .cod-close {
   cursor: pointer;
-  font-size: 2.5rem;
+  font-size: 3.5rem;
+  width: fit-content;
+  height: fit-content;
+  transition: all 0.3s ease;
+}
+.cod-close:hover {
+  color: #7775d2;
+  transform: scale(1.1);
+}
+.cod-close:active {
+  color: #7775d2;
+  transform: scale(0.9);
 }
 #codOrderForm fieldset {
   display: flex;
   flex-direction: column;
-  gap: 4px;
   outline: none;
   border: none;
 }
-.popup-price {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 8px;
-  border: 2px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--color-card);
-}
-.popup-price hr {
-  border-color: var(--color-border);
-}
-.popup-price p {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 
 #codOrderForm fieldset label {
-  color: var(--color-foreground);
+  color: #000;
 }
 #codOrderForm input {
-  border: 1px solid var(--color-border);
-  padding: 12px 8px;
+  border: 1px solid #c6d5e6;
+  padding: 8px 16px;
   font-size: 18px;
   transition: all 0.3s;
 }
