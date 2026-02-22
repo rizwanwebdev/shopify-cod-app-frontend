@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.querySelector("#closeCodForm");
   const form = document.querySelector("#codOrderForm");
   const submitBtn = form?.querySelector('button[type="submit"]');
+  const overlay = document.getElementById("cod-popup-container");
+
+  document.body.appendChild(overlay);
 
   const originalBtnText = submitBtn?.textContent || "Place Order";
 
