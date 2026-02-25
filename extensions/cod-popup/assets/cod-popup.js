@@ -7,17 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("cod-popup-container");
 
   document.body.appendChild(overlay);
+  console.log(
+    "%c For any web development or shopify related project hire me at contact@rizwanweb.site or check out my portfolio https://rizwanweb.site",
+    "font-weight: bold; font-size: 14px;color: rgb(2,135,206); text-shadow: 3px 3px 0 rgb(2,135,206)  15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)",
+  );
 
   const originalBtnText = submitBtn?.textContent || "Place Order";
 
   if (!btn || !popup || !form) {
-    console.error("Required COD elements not found");
+    // console.error("Required COD elements not found");
     return;
   }
 
   const messagePopup = document.querySelector("#message-popup");
   const messageText = document.querySelector("#message-text");
   const messageClose = document.querySelector("#message-close");
+  document.body.appendChild(messagePopup);
 
   function showMessage(type, text, duration = 4000) {
     messageText.textContent = text;
@@ -39,13 +44,61 @@ document.addEventListener("DOMContentLoaded", () => {
     messagePopup.classList.remove("show");
   });
 
-  // Show popup
+  // --- Meta Pixel Event Helper Functions ---
+
+  // Function to track InitiateCheckout with retry logic
+  function trackMetaPixelInitiateCheckoutWithRetry() {
+    if (typeof fbq === "function") {
+      // console.log("fbq defined for InitiateCheckout. Event sent.");
+      // You can add parameters like value, currency, content_ids, etc., if they are known when the popup opens
+      fbq("track", "InitiateCheckout");
+    } else {
+      // console.log("fbq not defined yet, retrying InitiateCheckout in 200ms...");
+      setTimeout(trackMetaPixelInitiateCheckoutWithRetry, 200);
+    }
+  }
+
+  // Function to track Purchase with retry logic
+  function trackMetaPixelPurchaseWithRetry(formData, resultOrderId) {
+    if (typeof fbq === "function") {
+      // console.log("fbq defined for Purchase. Event sent.");
+      const eventData = {
+        value: parseFloat(formData.product_price || "0"),
+        currency: "PKR",
+        content_ids: [formData.variantId], // Assuming formData.variantId is available
+        content_type: "product",
+      };
+      fbq("track", "Purchase", eventData);
+      // console.log("Meta Pixel Purchase event fired with data:", eventData);
+
+      // Google Analytics tracking - moved here for consistency with fbq check
+      if (typeof gtag === "function") {
+        gtag("event", "purchase", {
+          transaction_id: resultOrderId,
+          value: eventData.value,
+          currency: eventData.currency,
+        });
+        // console.log("Google Analytics Purchase event fired.");
+      }
+    } else {
+      // console.log("fbq not defined yet, retrying Purchase track in 200ms...");
+      setTimeout(
+        () => trackMetaPixelPurchaseWithRetry(formData, resultOrderId),
+        200,
+      );
+    }
+  }
+  // --- End Meta Pixel Event Helper Functions ---
+
+  // Show popup - this is where we trigger the Initiate Checkout event
   btn.addEventListener("click", () => {
     popup.classList.add("active");
     form.querySelector('input[name="name"]')?.focus();
+    // Trigger InitiateCheckout when the popup is shown
+    trackMetaPixelInitiateCheckoutWithRetry();
   });
 
-  // Close popup
+  // Close popup (via closeBtn or outside click)
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
       popup.classList.remove("active");
@@ -53,10 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Close popup on outside click
   popup.addEventListener("click", (e) => {
     if (e.target === popup) {
       popup.classList.remove("active");
+      form.reset(); // Also reset form if closed this way
     }
   });
 
@@ -64,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && popup.classList.contains("active")) {
       popup.classList.remove("active");
+      form.reset(); // Also reset form if closed this way
     }
   });
 
@@ -100,21 +154,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let result;
       try {
-        result = await res.json(); // read body ONCE as JSON
+        result = await res.json();
       } catch (parseError) {
         const text = await res.text().catch(() => "");
-        console.log("Raw response text:", text);
-        console.error("Failed to parse JSON from server:", parseError);
+        // console.log("Raw response text:", text);
+        // console.error("Failed to parse JSON from server:", parseError);
         throw new Error(`Server returned invalid data. Status: ${res.status}`);
       }
 
       // Handle success/error based on JSON + HTTP status
       if (!res.ok || !result.success) {
-        // Prefer a human-readable message from the backend
         let errorMsg =
           result?.message || result?.error || "Order failed. Please try again.";
-
-        // If details is an array of userErrors, append the first message (optional)
         if (
           Array.isArray(result?.details) &&
           result.details.length > 0 &&
@@ -122,7 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
           errorMsg += `: ${result.details[0].message}`;
         }
-
         showMessage("error", errorMsg);
         return;
       }
@@ -135,54 +185,14 @@ document.addEventListener("DOMContentLoaded", () => {
           : "Order placed successfully!");
 
       showMessage("success", successMsg);
-      function trackMetaPixelPurchaseWithRetry() {
-        if (typeof fbq === "function") {
-          console.log("fbq defined:", true); // Log that fbq is defined
-          console.log("Purchase Event Data:", {
-            value: parseFloat(formData.product_price || "0"),
-            currency: "PKR",
-            content_ids: [formData.variantId],
-            content_type: "product",
-          });
-          fbq("track", "Purchase", {
-            value: parseFloat(formData.product_price || "0"),
-            currency: "PKR",
-            content_ids: [formData.variantId],
-            content_type: "product",
-          });
-          console.log("Meta Pixel Purchase event fired!");
-        } else {
-          console.log(
-            "fbq not defined yet, retrying Meta Pixel track in 200ms...",
-          );
-          // Retry faster, as it's critical for conversion tracking
-          setTimeout(trackMetaPixelPurchaseWithRetry, 200);
-        }
-      }
-      trackMetaPixelPurchaseWithRetry(); // Initiate the tracking process
-      // --- META PIXEL TRACKING INTEGRATION END ---
-      // Google Analytics tracking
-      if (typeof gtag === "function") {
-        gtag("event", "purchase", {
-          transaction_id: result.orderId,
-          value: parseFloat(formData.product_price || "0"),
-          currency: "PKR",
-        });
-      }
 
-      // Google Analytics tracking
-      if (typeof gtag === "function") {
-        gtag("event", "purchase", {
-          transaction_id: result.orderId,
-          value: parseFloat(formData.product_price || "0"),
-          currency: "PKR",
-        });
-      }
+      // Trigger Purchase event after successful order
+      trackMetaPixelPurchaseWithRetry(formData, result.orderId);
 
       popup.classList.remove("active");
       form.reset();
     } catch (err) {
-      console.error("FULL ERROR:", err);
+      // console.error("FULL ERROR:", err);
 
       let userMessage = "Network error. Please check your connection.";
       if (err.message.includes("Failed to fetch")) {

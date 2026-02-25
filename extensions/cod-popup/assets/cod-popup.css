@@ -19,7 +19,7 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 9999;
+  z-index: 99999;
   display: none;
 }
 input:focus {
@@ -96,7 +96,16 @@ input:focus-visible {
 }
 
 /* message popup end */
-
+.cod-button {
+  padding: 16px;
+  background: var(--bg-color, #000);
+  color: var(--text-color, #fff);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+  width: 100%;
+}
 .cod-popup {
   position: fixed;
   top: 0;
@@ -171,7 +180,7 @@ input:focus-visible {
 .popup-title {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   gap: 16px;
   border-bottom: 1px solid #c6d5e6;
 }
@@ -203,7 +212,7 @@ input:focus-visible {
 
 .cod-close {
   cursor: pointer;
-  font-size: 3.5rem;
+  font-size: 2rem;
   width: fit-content;
   height: fit-content;
   transition: all 0.3s ease;
@@ -233,4 +242,63 @@ input:focus-visible {
   font-size: 18px;
   transition: all 0.3s;
   border-radius: 8px;
+}
+
+.btn-wobble {
+  position: relative;
+  animation: wobble 2s infinite ease-in-out;
+}
+@keyframes wobble {
+  0% {
+    transform: none;
+    transform-origin: center;
+  }
+  15% {
+    transform: translate3d(0, -25%, 0) rotate3d(0, 0, 1, -5deg);
+    transform-origin: center;
+  }
+  30% {
+    transform: translate3d(0, 20%, 0) rotate3d(0, 0, 1, 3deg);
+    transform-origin: center;
+  }
+  45% {
+    transform: translate3d(0, -15%, 0) rotate3d(0, 0, 1, -3deg);
+    transform-origin: center;
+  }
+  60% {
+    transform: translate3d(0, 10%, 0) rotate3d(0, 0, 1, 2deg);
+    transform-origin: center;
+  }
+  75% {
+    transform: translate3d(0, -5%, 0) rotate3d(0, 0, 1, -1deg);
+    transform-origin: center;
+  }
+  100% {
+    transform: none;
+    transform-origin: center;
+  }
+}
+.vibrate {
+  animation: vibrate-1 1.3s linear infinite both;
+}
+
+@keyframes vibrate-1 {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
 }

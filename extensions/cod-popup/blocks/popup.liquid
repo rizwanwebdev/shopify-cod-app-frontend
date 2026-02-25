@@ -1,7 +1,7 @@
 {% if block.settings.enabled %}
   <button
     id="cod-btn"
-    class="cod-button button button-solid"
+    class="cod-button btn-wobble"
     style="--text-color: {{ block.settings.text_color }}; --bg-color: {{ block.settings.bg_color }};"
   >
     {{ block.settings.title }}
@@ -24,7 +24,7 @@
             </svg>
             Cash On Delivery
           </h3>
-          <span id="closeCodForm" class="cod-close">&times;</span>
+          <span id="closeCodForm" class="cod-close">&#10006;</span>
         </div>
 
         <div class="popup-details">
@@ -69,7 +69,7 @@
             <input type="hidden" name="variantId" value="{{ product.selected_or_first_available_variant.id }}">
             <input type="hidden" name="quantity" value="1">
 
-          <button id="submitBtn" type="submit" class="button button-outline">
+          <button id="submitBtn" type="submit" class="cod-button vibrate">
            🛒 Place Order
           </button>
         </form>
