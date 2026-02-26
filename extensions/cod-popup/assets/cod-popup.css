@@ -3,7 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+:root {
+  --cod-border: #c6d5e6;
+  --cod-pack: #8b4513;
+}
 body {
   overflow-x: hidden !important;
 }
@@ -90,17 +93,6 @@ body {
   }
 }
 
-/* message popup end */
-.cod-button {
-  padding: 4x;
-  background: var(--bg-color, #000);
-  color: var(--text-color, #fff);
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 17px;
-  cursor: pointer;
-  width: 100%;
-}
 .cod-popup {
   position: fixed;
   top: 0;
@@ -171,7 +163,7 @@ body {
   flex-direction: row;
   align-items: center;
   gap: 16px;
-  border-bottom: 1px solid #c6d5e6;
+  border-bottom: 1px solid var(--cod-border);
 }
 .popup-title h3 {
   flex: 1;
@@ -182,7 +174,7 @@ body {
   text-align: center;
 }
 .popup-details {
-  border: 2px solid #c6d5e6;
+  border: 2px solid var(--cod-border);
   padding: 16px 8px;
   border-radius: 8px;
   display: flex;
@@ -220,6 +212,7 @@ body {
   outline: none;
   border: none;
   margin: 0;
+  padding: 4px 0;
 }
 
 #codOrderForm fieldset label {
@@ -230,7 +223,7 @@ body {
   flex-direction: row;
   gap: 4px;
   align-items: center;
-  border: 1px solid #c6d5e6;
+  border: 1px solid var(--cod-border);
   transition: all 0.3s;
   border-radius: 8px;
   overflow: hidden;
@@ -246,7 +239,7 @@ body {
   font-size: 17px;
   border: none;
   outline: none;
-  border-left: 1px solid #c6d5e6;
+  border-left: 1px solid var(--cod-border);
   line-height: 2px;
 }
 #codOrderForm .input-with-icon input:focus-visible {
@@ -263,22 +256,43 @@ body {
 }
 /* =================Quanitiy Seclectors------------------ */
 .pack-offer {
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 16px;
   align-items: center;
-  border: 2px solid saddlebrown;
+  border: 2px solid var(--cod-pack);
   border-radius: 8px;
   padding: 8px;
   justify-content: space-between;
 }
 .packs-field {
-  gap: 8px;
+  gap: 16px;
 }
 .pack-quantity {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+.pack-badge {
+  position: absolute;
+  top: -12px;
+  right: 10px;
+  background: var(--cod-pack);
+  color: #fff;
+  padding: 2px 10px 0;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 8px 0 8px;
+}
+.mini-badge {
+  padding: 1px 8px 0;
+  background: var(--cod-pack);
+  color: #fff;
+  padding: 2px 10px 0;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 12px 0 12px;
 }
 .btn-wobble {
   position: relative;

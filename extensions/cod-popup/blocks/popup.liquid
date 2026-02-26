@@ -6,15 +6,25 @@
   >
     {{ block.settings.title }}
   </button>
-
-  <!-- COD Popup container (hidden by default, populated with Liquid) -->
-  <div id="cod-popup-container" data-product-id="{{ product.id }}">
-    <div id="cod-popup" class="cod-popup" >
-      <style>
+       <style>
         .cod-popup{
           opacity:0; visibility:hidden;
         }
+        /* message popup end */
+        .cod-button {
+          {% comment %} padding: 10px 12px; {% endcomment %}
+          background: var(--bg-color, #000);
+          color: var(--text-color, #fff);
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 17px;
+          cursor: pointer;
+          width: 100%;
+        }
       </style>
+  <!-- COD Popup container (hidden by default, populated with Liquid) -->
+  <div id="cod-popup-container" data-product-id="{{ product.id }}">
+    <div id="cod-popup" class="cod-popup" >
       <div class="cod-popup-content">
         <div class="popup-title">
           <h3 class="larger">
@@ -50,15 +60,18 @@
              <div  class="pack-quantity">
                <input type="radio" value="1" name="pack_quantity" id="pack1" checked>
               <span>Pack 1</span>
+              <span class="mini-badge">Single Pack</span>
              </div>
-             <span class="pack-price large">Price here</span>
+             <span class="pack-price large">{{ product.price | money_without_currency }}</span>
             </label>
             <label class="pack-offer">
               <div class="pack-quantity">
                 <input type="radio" value="2" name="pack_quantity" id="pack2">
               <span>Pack 2</span>
+              <span class="mini-badge">Double</span>
               </div>
-              <span class="pack-price">Price Here</span>
+              <span class="pack-price">{{ product.price | money_without_currency }}</span>
+              <span class="pack-badge">Saved 400 pkr</span>
             </label>
           </fieldset>
           <fieldset>
