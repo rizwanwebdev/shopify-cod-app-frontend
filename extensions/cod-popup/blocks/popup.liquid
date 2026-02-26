@@ -12,14 +12,20 @@
         }
         /* message popup end */
         .cod-button {
-          {% comment %} padding: 10px 12px; {% endcomment %}
+          all: unset;
+          border: 2px solid var(--bg-color, #000);
           background: var(--bg-color, #000);
           color: var(--text-color, #fff);
           border-radius: 8px;
           font-weight: 600;
           font-size: 17px;
           cursor: pointer;
-          width: 100%;
+          width: 90%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 8px 10px;
+          margin: 0;
         }
       </style>
   <!-- COD Popup container (hidden by default, populated with Liquid) -->
@@ -55,23 +61,52 @@
         </div>
 
         <form id="codOrderForm">
-          <fieldset class="packs-field">
+          <fieldset class="packs-field" style="--cod-pack:{{ block.settings.packs_color }}">
             <label class="pack-offer">
              <div  class="pack-quantity">
-               <input type="radio" value="1" name="pack_quantity" id="pack1" checked>
+               <input type="radio" value="1" name="quantity" id="pack1" checked>
               <span>Pack 1</span>
-              <span class="mini-badge">Single Pack</span>
+              <span class="mini-badge">{{  block.settings.info_badge_1 }}</span>
              </div>
              <span class="pack-price large">{{ product.price | money_without_currency }}</span>
             </label>
             <label class="pack-offer">
               <div class="pack-quantity">
-                <input type="radio" value="2" name="pack_quantity" id="pack2">
+                <input type="radio" value="2" name="quantity" id="pack2">
               <span>Pack 2</span>
-              <span class="mini-badge">Double</span>
+              <span class="mini-badge">{{  block.settings.info_badge_2 }}</span>
               </div>
-              <span class="pack-price">{{ product.price | money_without_currency }}</span>
-              <span class="pack-badge">Saved 400 pkr</span>
+            <div class="dis-prices">  
+
+                 {%- assign discount_percent = block.settings.dis_percentage | default: 10 -%}
+                {%- assign unit_price_cents = product.price -%}
+
+                {%- assign discount_multiplier = 
+                  100.0 
+                  | minus: discount_percent 
+                  | divided_by: 100.0 
+                -%}
+
+                {%- assign two_pack_price_total =
+                  unit_price_cents
+                  | times: 2
+                -%}
+
+                {%- assign two_pack_price_cents =
+                  two_pack_price_total
+                  | times: discount_multiplier
+                -%}
+
+                <span class="pack-price large">
+                  {{ two_pack_price_cents | money_without_currency }}
+                </span>
+
+                <span class="total-price">
+                  {{ two_pack_price_total | money_without_currency }}
+                </span>
+
+              </div>
+              <span class="pack-badge">{{  block.settings.badge_text }}</span>
             </label>
           </fieldset>
           <fieldset>
@@ -125,13 +160,11 @@
           </fieldset>
 
           <input type="hidden" name="product_id" value="{{ product.id }}">
-          <input type="hidden" name="product_title" value="{{ product.title | escape }}">
-          <input type="hidden" name="product_price" value="{{ product.price | money_without_currency }}">
+          <input type="hidden" name="dis_percent" value="{{block.settings.dis_percentage }}">
+          <input type="hidden" name="discount_code" value="{{block.settings.dis_code }}">
            <!-- Hidden fields required by your backend -->
             <input type="hidden" name="variantId" value="{{ product.selected_or_first_available_variant.id }}">
-            <input type="hidden" name="quantity" value="1">
-
-          <button id="submitBtn" type="submit" class="cod-button vibrate">
+            <button id="submitBtn" type="submit" class="cod-button vibrate">
            🛒 Place Order
           </button>
         </form>
@@ -153,32 +186,71 @@
 {% endif %}
 
 {% schema %}
-{
-  "name": "COD Popup",
-  "target": "section",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "enabled",
-      "label": "Enable COD Popup",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Button Text",
-      "default": "Buy With Cash On Delievry"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color"
-    }
-  ]
-}
+  {
+    "name": "COD Popup",
+    "target": "section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enabled",
+        "label": "Enable COD Popup",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Button Text",
+        "default": "Buy With Cash On Delievry"
+      },
+      {
+        "type": "text",
+        "id": "badge_text",
+        "label": "Badge Text",
+        "default":"test1"
+      },
+      {
+        "type": "text",
+        "id": "info_badge_1",
+        "label": "Badge Text",
+        "default":"Single"
+      },
+      {
+        "type": "text",
+        "id": "info_badge_2",
+        "label": "Badge Text",
+        "default":"Double"
+      },
+       {
+        "type": "range",
+        "id": "dis_percentage",
+        "label": "Percentage",
+        "default": 10,
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "type": "text",
+        "id": "dis_code",
+        "label": "Discount Code",
+        "default":"PACK2"
+      },
+      {
+        "type": "color",
+        "id": "packs_color",
+        "label": "Packs Color",
+        "default":"#D4AF37"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Btn Text Color"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Btn Background Color"
+      }
+    ]
+  }
 {% endschema %}

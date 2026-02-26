@@ -1,8 +1,8 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "280d4436ee83a44b61388149ce9a37be"
-name = "new-cod"
-application_url = "https://code-backend-azure.vercel.app"
+name = "SPEED COD App"
+application_url = "https://shopify-cod-app.vercel.app"
 embedded = true
 
 [build]
@@ -24,9 +24,9 @@ api_version = "2026-04"
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "read_customers,write_customers,read_orders,write_orders,read_products,write_products"
 [app_proxy]
-url = "https://code-backend-azure.vercel.app/api/create-order"
+url = "https://shopify-cod-app.vercel.app/api/create-order"
 subpath = "cod"
 prefix = "apps"
 
 [auth]
-redirect_urls = [ "https://code-backend-azure.vercel.app" ]
+redirect_urls = [ "https://shopify-cod-app.vercel.app" ]

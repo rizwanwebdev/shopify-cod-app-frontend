@@ -1,8 +1,8 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "280d4436ee83a44b61388149ce9a37be"
-name = "testing"
-application_url = "https://code-backend-azure.vercel.app"
+name = "SPEED COD App"
+application_url = "https://shopify-cod-app.vercel.app"
 embedded = true
 
 [webhooks]
@@ -16,10 +16,11 @@ optional_scopes = [ ]
 use_legacy_install_flow = false
 
 [auth]
-redirect_urls = ["https://code-backend-azure.vercel.app"]
+redirect_urls = ["https://shopify-cod-app.vercel.app"]
 
+# old proxy url = "https://code-backend-azure.vercel.app/api/create-order"
 [app_proxy]
-url = "https://code-backend-azure.vercel.app/api/create-order"
+url = "https://shopify-cod-app.vercel.app/api/create-order"
 subpath = "cod"
 prefix = "apps"
 
