@@ -9,10 +9,13 @@ body {
 }
 .font-semi {
   font-weight: 500;
+  margin: 0;
 }
 .larger {
   font-weight: 600;
   color: #000;
+  line-height: 2px;
+  margin: 0;
 }
 
 .message-popup {
@@ -21,14 +24,6 @@ body {
   right: 20px;
   z-index: 99999;
   display: none;
-}
-input:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 1px;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-}
-input:focus-visible {
-  outline: 2px solid #2563eb;
 }
 
 .message-popup.show {
@@ -97,7 +92,7 @@ input:focus-visible {
 
 /* message popup end */
 .cod-button {
-  padding: 16px;
+  padding: 4x;
   background: var(--bg-color, #000);
   color: var(--text-color, #fff);
   border-radius: 8px;
@@ -116,11 +111,10 @@ input:focus-visible {
   align-items: flex-start; /* key change */
   justify-content: center;
 
-  padding: 5vh 20px;
+  padding: 1vh 20px;
 
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(12px) saturate(120%);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
   overflow-y: auto;
   transition:
     opacity 0.3s ease,
@@ -152,11 +146,6 @@ input:focus-visible {
 
 #buyNowBtn,
 #submitBtn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
   margin-block: 1rem;
 }
 #submitBtn {
@@ -180,7 +169,7 @@ input:focus-visible {
 .popup-title {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   gap: 16px;
   border-bottom: 1px solid #c6d5e6;
 }
@@ -194,14 +183,14 @@ input:focus-visible {
 }
 .popup-details {
   border: 2px solid #c6d5e6;
-  padding: 4px 8px;
+  padding: 16px 8px;
   border-radius: 8px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 16px;
 }
 .popup-product {
   display: flex;
@@ -236,14 +225,42 @@ input:focus-visible {
 #codOrderForm fieldset label {
   color: #000;
 }
-#codOrderForm input {
+.input-with-icon {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
   border: 1px solid #c6d5e6;
-  padding: 8px 16px;
-  font-size: 18px;
   transition: all 0.3s;
   border-radius: 8px;
+  overflow: hidden;
 }
-
+.input-with-icon svg {
+  width: fit-content;
+  aspect-ratio: 1;
+  margin-inline: 10px;
+}
+#codOrderForm .input-with-icon input {
+  flex: 1;
+  padding: 4px 16px;
+  font-size: 17px;
+  border: none;
+  outline: none;
+  border-left: 1px solid #c6d5e6;
+  line-height: 2px;
+}
+#codOrderForm .input-with-icon input:focus-visible {
+  background: transparent;
+}
+.input-with-icon:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+}
+.input-with-icon:hover {
+  border-color: #16a221;
+}
 .btn-wobble {
   position: relative;
   animation: wobble 2s infinite ease-in-out;

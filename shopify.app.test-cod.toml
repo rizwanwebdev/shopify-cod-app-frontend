@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "280d4436ee83a44b61388149ce9a37be"
-name = "test-cod"
+name = "testing"
 application_url = "https://code-backend-azure.vercel.app"
 embedded = true
 
