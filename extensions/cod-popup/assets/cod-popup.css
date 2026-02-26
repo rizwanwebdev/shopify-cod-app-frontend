@@ -261,6 +261,25 @@ body {
 .input-with-icon:hover {
   border-color: #16a221;
 }
+/* =================Quanitiy Seclectors------------------ */
+.pack-offer {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  border: 2px solid saddlebrown;
+  border-radius: 8px;
+  padding: 8px;
+  justify-content: space-between;
+}
+.packs-field {
+  gap: 8px;
+}
+.pack-quantity {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 .btn-wobble {
   position: relative;
   animation: wobble 2s infinite ease-in-out;

@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = Object.fromEntries(new FormData(form).entries());
+    console.log(formData);
 
     // Basic validation
     if (!formData.name || !formData.phone || !formData.address) {
