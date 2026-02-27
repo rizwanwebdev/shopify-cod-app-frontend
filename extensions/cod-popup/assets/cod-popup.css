@@ -239,13 +239,14 @@ body {
 }
 #codOrderForm .input-with-icon input {
   flex: 1;
-  padding: 4px 16px; /* for urdu font*/
+  /*padding: 4px 16px;*/ /* for urdu font*/
   padding: 12px 10px; /* for non urdu font*/
   font-size: 17px;
   border: none;
   outline: none;
   border-left: 1px solid var(--cod-border);
   line-height: 2px;
+  width: 100%;
 }
 #codOrderForm .input-with-icon input:focus-visible {
   background: transparent;
