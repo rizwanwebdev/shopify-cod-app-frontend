@@ -54,12 +54,12 @@ body {
 }
 
 .message-box.success button {
-  color: #052e16 !important;
+  color: #052e16;
 }
 .message-box.error span,
 .message-box.error {
   background: #ef4444;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 .message-box.error button {
