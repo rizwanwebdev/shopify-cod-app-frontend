@@ -20,9 +20,9 @@
         /* message popup end */
         .cod-button {
           all: unset;
-          border: 2px solid var(--bg-color, #000);
-          background: var(--bg-color, #000);
-          color: var(--text-color, #fff);
+          border: 2px solid var(--bg-color, #000000);
+          background: var(--bg-color, #000000);
+          color: var(--text-color, #ffffff);
           border-radius: 8px;
           font-weight: 600;
           font-size: 17px;
@@ -182,7 +182,7 @@
           <input type="hidden" name="discount_code" value="{{block.settings.dis_code }}">
            <!-- Hidden fields required by your backend -->
             <input type="hidden" name="variantId" value="{{ product.selected_or_first_available_variant.id }}">
-            <button id="submitBtn" type="submit" class="cod-button vibrate">
+            <button id="submitBtn" style="--text-color: {{ block.settings.text_color | default: '#eee3e3' }}; --bg-color: {{ block.settings.bg_color | default: '#1c1b1b' }};" type="submit" class="cod-button vibrate">
            🛒 Place Order
           </button>
         </form>
