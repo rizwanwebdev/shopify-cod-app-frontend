@@ -26,6 +26,7 @@
           align-items: center;
           padding: 8px 10px;
           margin: 0;
+          transition:all .3s ease;
         }
       </style>
   <!-- COD Popup container (hidden by default, populated with Liquid) -->
@@ -133,7 +134,7 @@
               </clipPath>
               </defs>
               </svg>
-              <input autocomplete="tel" id="cod-phone" type="tel" name="phone" placeholder="فون نمبر" required>
+              <input autocomplete="tel" id="cod-phone" type="tel" name="phone" placeholder="فون نمبر" inputmode="numeric" required>
             </div>
           </fieldset>
           <fieldset>
