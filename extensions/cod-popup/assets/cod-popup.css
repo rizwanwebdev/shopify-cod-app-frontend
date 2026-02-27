@@ -47,7 +47,7 @@ body {
   align-items: center;
   animation: slideIn 0.3s ease;
 }
-
+.message-box.success span,
 .message-box.success {
   background: #22c55e;
   color: #052e16;
@@ -56,7 +56,7 @@ body {
 .message-box.success button {
   color: #052e16 !important;
 }
-
+.message-box.error span,
 .message-box.error {
   background: #ef4444;
   color: #ffffff !important;
@@ -65,7 +65,7 @@ body {
 .message-box.error button {
   color: #ffffff;
 }
-
+.message-box.info span,
 .message-box.info {
   background: #3b82f6;
   color: #eff6ff;

@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const messageClose = document.querySelector("#message-close");
   document.body.appendChild(messagePopup);
 
-  function showMessage(type, text, duration = 4000) {
+  function showMessage(type, text, duration = 8000) {
     messageText.textContent = text;
 
     const box = messagePopup.querySelector(".message-box");
