@@ -2,7 +2,14 @@
   <button
     id="cod-btn"
     class="cod-button btn-wobble"
-    style="--text-color: {{ block.settings.text_color }}; --bg-color: {{ block.settings.bg_color }};"
+    style="--text-color: {{ block.settings.text_color | default: '#f1eff6' }}; --bg-color: {{ block.settings.bg_color | default: '#1b1a1a' }};"
+  >
+    {{ block.settings.title }}
+  </button>
+    <button
+    id="cod-btn"
+    class="cod-button btn-wobble cod-btn-bottom"
+    style="--text-color: {{ block.settings.text_color | default: '#eee3e3' }}; --bg-color: {{ block.settings.bg_color | default: '#1c1b1b' }};"
   >
     {{ block.settings.title }}
   </button>
@@ -13,9 +20,9 @@
         /* message popup end */
         .cod-button {
           all: unset;
-          border: 2px solid var(--bg-color, #000);
-          background: var(--bg-color, #000);
-          color: var(--text-color, #fff);
+          border: 2px solid var(--bg-color);
+          background: var(--bg-color);
+          color: var(--text-color);
           border-radius: 8px;
           font-weight: 600;
           font-size: 17px;
@@ -27,6 +34,16 @@
           padding: 8px 10px;
           margin: 0;
           transition:all .3s ease;
+        }
+        .cod-btn-bottom{
+        display:none;}
+        .cod-btn-bottom.fixed-bottom {
+          position: fixed;
+          display:flex;
+          bottom: 20px;
+          width: 80%;
+          width: 75%;
+          z-index: 999;
         }
       </style>
   <!-- COD Popup container (hidden by default, populated with Liquid) -->

@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.querySelector("#cod-btn");
+  const btnBottom = document.querySelector(".cod-btn-bottom");
   const popup = document.querySelector("#cod-popup");
   const closeBtn = document.querySelector("#closeCodForm");
   const form = document.querySelector("#codOrderForm");
@@ -12,12 +13,36 @@ document.addEventListener("DOMContentLoaded", () => {
     "font-weight: bold; font-size: 14px;color: rgb(2,135,206); text-shadow: 3px 3px 0 rgb(2,135,206)  15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)",
   );
 
-  const originalBtnText = submitBtn?.textContent || "Place Order";
-
   if (!btn || !popup || !form) {
     // console.error("Required COD elements not found");
     return;
   }
+
+  function handleButtonPosition() {
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth >= 768) {
+      btnBottom.classList.remove("fixed-bottom");
+      return;
+    }
+
+    const rect = btn.getBoundingClientRect();
+
+    // If original button is above viewport
+    if (rect.bottom < 60) {
+      btnBottom.classList.add("fixed-bottom");
+    } else {
+      btnBottom.classList.remove("fixed-bottom");
+    }
+  }
+
+  window.addEventListener("scroll", handleButtonPosition);
+  window.addEventListener("resize", handleButtonPosition);
+
+  window.addEventListener("scroll", handleButtonPosition);
+  window.addEventListener("resize", handleButtonPosition);
+
+  const originalBtnText = submitBtn?.textContent || "Place Order";
 
   const messagePopup = document.querySelector("#message-popup");
   const messageText = document.querySelector("#message-text");
