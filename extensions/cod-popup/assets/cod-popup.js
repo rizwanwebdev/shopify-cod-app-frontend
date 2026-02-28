@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to track InitiateCheckout with retry logic
   function trackMetaPixelInitiateCheckoutWithRetry() {
     if (typeof fbq === "function") {
-      // console.log("fbq defined for InitiateCheckout. Event sent.");
+      console.log("fbq defined for InitiateCheckout. Event sent.");
       // You can add parameters like value, currency, content_ids, etc., if they are known when the popup opens
       fbq("track", "InitiateCheckout");
     } else {
@@ -80,13 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(trackMetaPixelInitiateCheckoutWithRetry, 200);
     }
   }
-  if (typeof fbq === "function") {
-    console.log("fbq defined for InitiateCheckout. Event sent.");
-  }
+
   // Function to track Purchase with retry logic
   function trackMetaPixelPurchaseWithRetry(formData, resultOrderId) {
     if (typeof fbq === "function") {
-      // console.log("fbq defined for Purchase. Event sent.");
+      console.log("fbq defined for Purchase. Event sent.");
       const eventData = {
         value: parseFloat(formData.product_price || "0"),
         currency: "PKR",
@@ -94,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         content_type: "product",
       };
       fbq("track", "Purchase", eventData);
-      // console.log("Meta Pixel Purchase event fired with data:", eventData);
+      console.log("Meta Pixel Purchase event fired with data:", eventData);
 
       // Google Analytics tracking - moved here for consistency with fbq check
       if (typeof gtag === "function") {
@@ -157,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = Object.fromEntries(new FormData(form).entries());
+    console.log(formData);
 
     // Basic validation
     if (!formData.name || !formData.phone || !formData.address) {
