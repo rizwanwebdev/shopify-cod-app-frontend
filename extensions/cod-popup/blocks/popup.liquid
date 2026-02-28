@@ -1,4 +1,50 @@
 {% if block.settings.enabled %}
+   <div class="packs-field" style="--cod-pack:{{ block.settings.packs_color }}"> <label class="pack-offer">
+          <div  class="pack-quantity">
+            <input type="radio" form="codOrderForm" value="1" name="quantity" id="pack1" checked>
+          <span>Pack 1</span>
+          <span class="mini-badge">{{  block.settings.info_badge_1 }}</span>
+          </div>
+          <span class="pack-price large">{{ product.price | money_without_currency }}</span>
+        </label>
+        <label class="pack-offer">
+          <div class="pack-quantity">
+            <input type="radio"  form="codOrderForm" value="2" name="quantity" id="pack2">
+          <span>Pack 2</span>
+          <span class="mini-badge">{{  block.settings.info_badge_2 }}</span>
+          </div>
+        <div class="dis-prices">  
+
+              {%- assign discount_percent = block.settings.dis_percentage | default: 10 -%}
+            {%- assign unit_price_cents = product.price -%}
+
+            {%- assign discount_multiplier = 
+              100.0 
+              | minus: discount_percent 
+              | divided_by: 100.0 
+            -%}
+
+            {%- assign two_pack_price_total =
+              unit_price_cents
+              | times: 2
+            -%}
+
+            {%- assign two_pack_price_cents =
+              two_pack_price_total
+              | times: discount_multiplier
+            -%}
+
+            <span class="pack-price large">
+              {{ two_pack_price_cents | money_without_currency }}
+            </span>
+
+            <span class="total-price">
+              {{ two_pack_price_total | money_without_currency }}
+            </span>
+          </div>
+          <span class="pack-badge">{{  block.settings.badge_text }}</span>
+        </label>
+      </div>
   <button
     id="cod-btn"
     class="cod-button btn-wobble"
@@ -39,10 +85,10 @@
         display:none;}
         .cod-btn-bottom.fixed-bottom {
           position: fixed;
-          display:flex;
-          bottom: 20px;
-          width: 75%;
-          z-index: 999;
+          display: flex;
+          bottom: 0;
+          left: 2%;
+          z-index:9;
         }
       </style>
   <!-- COD Popup container (hidden by default, populated with Liquid) -->
@@ -78,54 +124,7 @@
         </div>
 
         <form id="codOrderForm">
-          <fieldset class="packs-field" style="--cod-pack:{{ block.settings.packs_color }}">
-            <label class="pack-offer">
-             <div  class="pack-quantity">
-               <input type="radio" value="1" name="quantity" id="pack1" checked>
-              <span>Pack 1</span>
-              <span class="mini-badge">{{  block.settings.info_badge_1 }}</span>
-             </div>
-             <span class="pack-price large">{{ product.price | money_without_currency }}</span>
-            </label>
-            <label class="pack-offer">
-              <div class="pack-quantity">
-                <input type="radio" value="2" name="quantity" id="pack2">
-              <span>Pack 2</span>
-              <span class="mini-badge">{{  block.settings.info_badge_2 }}</span>
-              </div>
-            <div class="dis-prices">  
-
-                 {%- assign discount_percent = block.settings.dis_percentage | default: 10 -%}
-                {%- assign unit_price_cents = product.price -%}
-
-                {%- assign discount_multiplier = 
-                  100.0 
-                  | minus: discount_percent 
-                  | divided_by: 100.0 
-                -%}
-
-                {%- assign two_pack_price_total =
-                  unit_price_cents
-                  | times: 2
-                -%}
-
-                {%- assign two_pack_price_cents =
-                  two_pack_price_total
-                  | times: discount_multiplier
-                -%}
-
-                <span class="pack-price large">
-                  {{ two_pack_price_cents | money_without_currency }}
-                </span>
-
-                <span class="total-price">
-                  {{ two_pack_price_total | money_without_currency }}
-                </span>
-
-              </div>
-              <span class="pack-badge">{{  block.settings.badge_text }}</span>
-            </label>
-          </fieldset>
+         
           <fieldset>
             <label for="cod-name">Full Name *</label>
             <div class="input-with-icon">
@@ -223,7 +222,7 @@
         "type": "text",
         "id": "badge_text",
         "label": "Badge Text",
-        "default":"test1"
+        "default":"Popluar Offer"
       },
       {
         "type": "text",
@@ -235,7 +234,7 @@
         "type": "text",
         "id": "info_badge_2",
         "label": "Badge Text",
-        "default":"Double"
+        "default":"Saved RS. 400"
       },
        {
         "type": "range",

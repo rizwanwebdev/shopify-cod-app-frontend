@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("cod-popup-container");
 
   document.body.appendChild(overlay);
+  document.body.appendChild(btnBottom);
   console.log(
     "%c For any web development or shopify related project hire me at contact@rizwanweb.site or check out my portfolio https://rizwanweb.site",
     "font-weight: bold; font-size: 14px;color: rgb(2,135,206); text-shadow: 3px 3px 0 rgb(2,135,206)  15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)",
@@ -38,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", handleButtonPosition);
   window.addEventListener("resize", handleButtonPosition);
-  handleButtonPosition();
 
   const originalBtnText = submitBtn?.textContent || "Place Order";
 
