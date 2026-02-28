@@ -325,7 +325,7 @@ body {
 .q-box {
   position: relative;
   border: 2px solid saddlebrown;
-  padding: 25px 16px 16px;
+  /* padding: 16px; */
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -365,15 +365,13 @@ body {
   object-position: center;
   object-fit: cover;
 }
-.q-box:first-child p {
-  margin-top: 10px;
-}
 .q-box p:not(.dismised) {
   font-size: 17px;
   font-weight: 600;
 }
 .p-margin {
-  margin-top: 20px !important;
+  /* margin-top: 20px !important; */
+  text-align: center;
 }
 .dismised {
   text-decoration: line-through;
