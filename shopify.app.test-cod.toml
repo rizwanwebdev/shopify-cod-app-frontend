@@ -1,6 +1,6 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "280d4436ee83a44b61388149ce9a37be"
+client_id = "660d43ca2392106e13a25afc2456f4a4"
 name = "SPEED COD App"
 application_url = "https://shopify-cod-app.vercel.app"
 embedded = true

@@ -38,9 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", handleButtonPosition);
   window.addEventListener("resize", handleButtonPosition);
-
-  window.addEventListener("scroll", handleButtonPosition);
-  window.addEventListener("resize", handleButtonPosition);
+  handleButtonPosition();
 
   const originalBtnText = submitBtn?.textContent || "Place Order";
 
@@ -82,7 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(trackMetaPixelInitiateCheckoutWithRetry, 200);
     }
   }
-
+  if (typeof fbq === "function") {
+    console.log("fbq defined for InitiateCheckout. Event sent.");
+  }
   // Function to track Purchase with retry logic
   function trackMetaPixelPurchaseWithRetry(formData, resultOrderId) {
     if (typeof fbq === "function") {
@@ -116,12 +116,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- End Meta Pixel Event Helper Functions ---
 
   // Show popup - this is where we trigger the Initiate Checkout event
-  btn.addEventListener("click", () => {
+  function openPopup() {
     popup.classList.add("active");
     form.querySelector('input[name="name"]')?.focus();
-    // Trigger InitiateCheckout when the popup is shown
     trackMetaPixelInitiateCheckoutWithRetry();
-  });
+  }
+
+  if (btn) {
+    btn.addEventListener("click", openPopup);
+  }
+
+  if (btnBottom) {
+    btnBottom.addEventListener("click", openPopup);
+  }
 
   // Close popup (via closeBtn or outside click)
   if (closeBtn) {
