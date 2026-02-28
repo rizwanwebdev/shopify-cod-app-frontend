@@ -314,6 +314,87 @@ body {
   text-decoration: line-through;
   color: #46565e;
 }
+/* ======================== */
+/* new quantity picker styles */
+.quantity-boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+.q-box {
+  position: relative;
+  border: 2px solid saddlebrown;
+  padding: 25px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  border-radius: 4px;
+  background: #e0e0e0;
+  box-shadow:
+    20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
+}
+.q-box p {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.q-box:has(.box-radio:checked) {
+  border-color: blue;
+}
+.q-box img {
+  width: auto;
+  height: 100%;
+  max-height: 100px;
+  object-position: center;
+  object-fit: cover;
+}
+.q-box:first-child p {
+  margin-top: 10px;
+}
+.q-box p:not(.dismised) {
+  font-size: 17px;
+  font-weight: 600;
+}
+.p-margin {
+  margin-top: 20px !important;
+}
+.dismised {
+  text-decoration: line-through;
+  font-size: 15px;
+  opacity: 0.8;
+}
+.q-badge {
+  display: var(--display);
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-align: center;
+}
+/* ======================= */
 .btn-wobble {
   position: relative;
   animation: wobble 2s infinite ease-in-out;
