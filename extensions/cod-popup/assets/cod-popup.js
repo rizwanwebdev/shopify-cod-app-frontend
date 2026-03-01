@@ -72,11 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to track InitiateCheckout with retry logic
   function trackMetaPixelInitiateCheckoutWithRetry() {
     if (typeof fbq === "function") {
-      // console.log("fbq defined for InitiateCheckout. Event sent.");
+      console.log("fbq defined for InitiateCheckout. Event sent.");
       // You can add parameters like value, currency, content_ids, etc., if they are known when the popup opens
       fbq("track", "InitiateCheckout");
     } else {
-      // console.log("fbq not defined yet, retrying InitiateCheckout in 200ms...");
+      console.log("fbq not defined yet, retrying InitiateCheckout in 200ms...");
       setTimeout(trackMetaPixelInitiateCheckoutWithRetry, 200);
     }
   }
@@ -84,15 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to track Purchase with retry logic
   function trackMetaPixelPurchaseWithRetry(formData, resultOrderId) {
     if (typeof fbq === "function") {
-      // console.log("fbq defined for Purchase. Event sent.");
+      console.log("fbq defined for Purchase. Event sent.");
       const eventData = {
         value: parseFloat(formData.product_price || "0"),
         currency: "PKR",
         content_ids: [formData.variantId], // Assuming formData.variantId is available
         content_type: "product",
       };
-      // fbq("track", "Purchase", eventData);
-      // // console.log("Meta Pixel Purchase event fired with data:", eventData);
+      fbq("track", "Purchase", eventData);
+      console.log("Meta Pixel Purchase event fired with data:", eventData);
       // // Google Analytics tracking - moved here for consistency with fbq check
       // if (typeof gtag === "function") {
       //   gtag("event", "purchase", {
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
       //   // console.log("Google Analytics Purchase event fired.");
       // }
     } else {
-      // console.log("fbq not defined yet, retrying Purchase track in 200ms...");
+      console.log("fbq not defined yet, retrying Purchase track in 200ms...");
       setTimeout(
         () => trackMetaPixelPurchaseWithRetry(formData, resultOrderId),
         200,

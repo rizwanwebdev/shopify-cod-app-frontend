@@ -1,5 +1,13 @@
 {% if block.settings.enabled %}
 
+    <button
+    id="cod-btn"
+    class="cod-button btn-wobble"
+    style="--text-color: {{ block.settings.text_color | default: '#f1eff6' }}; --bg-color: {{ block.settings.bg_color | default: '#1b1a1a' }};"
+  >
+    {{ block.settings.title }}
+  </button>
+
   {%- assign discount_percent = block.settings.dis_percentage | default: 10 -%}
   {%- assign unit_price_cents = product.price -%}
 
@@ -97,13 +105,7 @@
     </div>
   {% endif %}
    
-  <button
-    id="cod-btn"
-    class="cod-button btn-wobble"
-    style="--text-color: {{ block.settings.text_color | default: '#f1eff6' }}; --bg-color: {{ block.settings.bg_color | default: '#1b1a1a' }};"
-  >
-    {{ block.settings.title }}
-  </button>
+
     <button
     id="cod-btn"
     class="cod-button btn-wobble cod-btn-bottom"

@@ -321,10 +321,11 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   width: 100%;
+  margin-bottom: 10px;
 }
 .q-box {
   position: relative;
-  border: 2px solid saddlebrown;
+  border: 2px solid transparent;
   /* padding: 16px; */
   display: flex;
   flex-direction: column;
