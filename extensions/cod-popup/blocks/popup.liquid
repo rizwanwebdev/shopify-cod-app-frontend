@@ -232,6 +232,7 @@
           <input type="hidden" name="discount_code" value="{{block.settings.dis_code }}">
            <!-- Hidden fields required by your backend -->
             <input type="hidden" name="variantId" value="{{ product.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="product_price" value="{{ product.price }}">
             <button id="submitBtn" style="--text-color: {{ block.settings.text_color | default: '#eee3e3' }}; --bg-color: {{ block.settings.bg_color | default: '#1c1b1b' }};" type="submit" class="cod-button vibrate">
            🛒 Place Order
           </button>

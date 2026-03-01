@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to track InitiateCheckout with retry logic
   function trackMetaPixelInitiateCheckoutWithRetry() {
     if (typeof fbq === "function") {
-      console.log("fbq defined for InitiateCheckout. Event sent.");
+      // console.log("fbq defined for InitiateCheckout. Event sent.");
       // You can add parameters like value, currency, content_ids, etc., if they are known when the popup opens
       fbq("track", "InitiateCheckout");
     } else {
@@ -84,25 +84,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to track Purchase with retry logic
   function trackMetaPixelPurchaseWithRetry(formData, resultOrderId) {
     if (typeof fbq === "function") {
-      console.log("fbq defined for Purchase. Event sent.");
+      // console.log("fbq defined for Purchase. Event sent.");
       const eventData = {
         value: parseFloat(formData.product_price || "0"),
         currency: "PKR",
         content_ids: [formData.variantId], // Assuming formData.variantId is available
         content_type: "product",
       };
-      fbq("track", "Purchase", eventData);
-      console.log("Meta Pixel Purchase event fired with data:", eventData);
-
-      // Google Analytics tracking - moved here for consistency with fbq check
-      if (typeof gtag === "function") {
-        gtag("event", "purchase", {
-          transaction_id: resultOrderId,
-          value: eventData.value,
-          currency: eventData.currency,
-        });
-        // console.log("Google Analytics Purchase event fired.");
-      }
+      // fbq("track", "Purchase", eventData);
+      // // console.log("Meta Pixel Purchase event fired with data:", eventData);
+      // // Google Analytics tracking - moved here for consistency with fbq check
+      // if (typeof gtag === "function") {
+      //   gtag("event", "purchase", {
+      //     transaction_id: resultOrderId,
+      //     value: eventData.value,
+      //     currency: eventData.currency,
+      //   });
+      //   // console.log("Google Analytics Purchase event fired.");
+      // }
     } else {
       // console.log("fbq not defined yet, retrying Purchase track in 200ms...");
       setTimeout(
@@ -155,7 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = Object.fromEntries(new FormData(form).entries());
-    console.log(formData);
 
     // Basic validation
     if (!formData.name || !formData.phone || !formData.address) {
