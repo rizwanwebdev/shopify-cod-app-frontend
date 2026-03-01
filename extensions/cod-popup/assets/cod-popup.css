@@ -12,6 +12,13 @@
 body {
   overflow-x: hidden !important;
 }
+.rtl {
+  line-height: 2;
+  direction: rtl;
+}
+.customer-note {
+  color: red;
+}
 .font-semi {
   font-weight: 500;
   margin: 0;
@@ -321,7 +328,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 .q-box {
   position: relative;

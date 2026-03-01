@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("#codOrderForm");
   const submitBtn = form?.querySelector('button[type="submit"]');
   const overlay = document.getElementById("cod-popup-container");
+  const radios = document.querySelectorAll(".dynamic-radio");
+  const priceDisplay = document.getElementById("dynamic-price");
 
   document.body.appendChild(overlay);
   document.body.appendChild(btnBottom);
@@ -18,6 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.error("Required COD elements not found");
     return;
   }
+  radios.forEach((radio) => {
+    radio.addEventListener("change", function () {
+      if (this.checked) {
+        priceDisplay.textContent = this.dataset.price;
+      }
+    });
+  });
 
   function handleButtonPosition() {
     const windowWidth = window.innerWidth;
@@ -72,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to track InitiateCheckout with retry logic
   function trackMetaPixelInitiateCheckoutWithRetry() {
     if (typeof fbq === "function") {
-      console.log("fbq defined for InitiateCheckout. Event sent.");
+      // console.log("fbq defined for InitiateCheckout. Event sent.");
       // You can add parameters like value, currency, content_ids, etc., if they are known when the popup opens
       fbq("track", "InitiateCheckout");
     } else {
-      console.log("fbq not defined yet, retrying InitiateCheckout in 200ms...");
+      // console.log("fbq not defined yet, retrying InitiateCheckout in 200ms...");
       setTimeout(trackMetaPixelInitiateCheckoutWithRetry, 200);
     }
   }
@@ -84,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to track Purchase with retry logic
   function trackMetaPixelPurchaseWithRetry(formData, resultOrderId) {
     if (typeof fbq === "function") {
-      console.log("fbq defined for Purchase. Event sent.");
+      // console.log("fbq defined for Purchase. Event sent.");
       const eventData = {
         value: parseFloat(formData.product_price || "0"),
         currency: "PKR",
@@ -92,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         content_type: "product",
       };
       fbq("track", "Purchase", eventData);
-      console.log("Meta Pixel Purchase event fired with data:", eventData);
+      // console.log("Meta Pixel Purchase event fired with data:", eventData);
       // // Google Analytics tracking - moved here for consistency with fbq check
       // if (typeof gtag === "function") {
       //   gtag("event", "purchase", {
@@ -103,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       //   // console.log("Google Analytics Purchase event fired.");
       // }
     } else {
-      console.log("fbq not defined yet, retrying Purchase track in 200ms...");
+      // console.log("fbq not defined yet, retrying Purchase track in 200ms...");
       setTimeout(
         () => trackMetaPixelPurchaseWithRetry(formData, resultOrderId),
         200,
@@ -131,14 +140,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
       popup.classList.remove("active");
-      form.reset();
+      // form.reset();
     });
   }
 
   popup.addEventListener("click", (e) => {
     if (e.target === popup) {
       popup.classList.remove("active");
-      form.reset(); // Also reset form if closed this way
+      // form.reset(); // Also reset form if closed this way
     }
   });
 
@@ -146,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && popup.classList.contains("active")) {
       popup.classList.remove("active");
-      form.reset(); // Also reset form if closed this way
+      // form.reset(); // Also reset form if closed this way
     }
   });
 

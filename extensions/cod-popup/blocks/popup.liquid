@@ -30,7 +30,7 @@
   {% if block.settings.simple_picker %}
     <div class="packs-field" style="--cod-pack:{{ block.settings.packs_color }}"> <label class="pack-offer">
           <div  class="pack-quantity">
-            <input type="radio" form="codOrderForm" value="1" name="quantity" id="pack1" checked>
+            <input type="radio"  data-price="Rs. {{ product.price | money_without_currency }}" form="codOrderForm" value="1" name="quantity" class="dynamic-radio" id="pack1" checked>
           <span>Pack 1</span>
           <span class="mini-badge">{{  block.settings.info_badge_1 }}</span>
           </div>
@@ -38,7 +38,7 @@
         </label>
         <label class="pack-offer">
           <div class="pack-quantity">
-            <input type="radio"  form="codOrderForm" value="2" name="quantity" id="pack2">
+            <input type="radio"  data-price="Rs. {{ two_pack_price_cents | money_without_currency }}"  form="codOrderForm" value="2" name="quantity" class="dynamic-radio" id="pack2">
           <span>Pack 2</span>
           <span class="mini-badge">{{  block.settings.info_badge_2 }}</span>
           </div>
@@ -60,42 +60,45 @@
       <label class="q-box">
         <input
           form="codOrderForm"
-          class="box-radio"
+          class="box-radio dynamic-radio"
           type="radio"
           name="quantity"
           hidden
           value="1"
           checked
+           data-price="Rs. {{ product.price | money_without_currency }}"
         />
         <p>1 Pack</p>
        <img src="{{ block.settings.box_image_1 | image_url: height: 100 }}" alt="Pack 1" width="auto" height="100">
-        <p class="dismised">{{ product.compare_at_price | money_without_currency }}</p>
-        <p>{{ product.price | money_without_currency }}</p>
+        <p class="dismised">Rs. {{ product.compare_at_price | money_without_currency }}</p>
+        <p>Rs. {{ product.price | money_without_currency }}</p>
       </label>
       <label class="q-box" style="--display:{{ block.settings.display_badge }}" >
         <div class="q-badge">{{  block.settings.badge_text }}</div>
         <input
           form="codOrderForm"
           type="radio"
-          class="box-radio"
+          class="box-radio dynamic-radio"
           name="quantity"
           hidden
           value="2"
+           data-price="Rs. {{ two_pack_price_cents | money_without_currency }}"
         />
         <p class="p-margin">2 Packs</p>
        <img src="{{ block.settings.box_image_2 | image_url: height: 100 }}" alt="Pack 2" width="auto" height="100">
-        <p class="dismised">{{ two_pack_price_total | money_without_currency }}</p>
-        <p>{{ two_pack_price_cents | money_without_currency }}</p>
+        <p class="dismised">Rs. {{ two_pack_price_total | money_without_currency }}</p>
+        <p>Rs. {{ two_pack_price_cents | money_without_currency }}</p>
       </label>
       <label class="q-box" style="--display:{{ block.settings.display_badge }}" >
         <div class="q-badge">Best Value</div>
         <input
           form="codOrderForm"
           type="radio"
-          class="box-radio"
+          class="box-radio dynamic-radio"
           name="quantity"
           hidden
           value="3"
+          data-price="Rs. {{ block.settings.full_price }}"
         />
         <p class="p-margin">Full Course</p>
         <img src="{{ block.settings.box_image_3 | image_url: height: 100 }}" alt="Pack 3" width="auto" height="100">
@@ -171,10 +174,13 @@
             <p class="font-semi">{{ product.title }}</p>
           </div>
 
-            <p class="larger">
+            <p id="dynamic-price" class="larger">
             {{ product.price | money }}
             </p>
         
+        </div>
+        <div class="customer-note rtl">
+          براہِ کرم اپنا مکمل پتہ اور شہر کا نام واضح طور پر درج کریں تاکہ ہم آپ کا آرڈر آسانی اور بروقت آپ کے درست ایڈریس پر ڈیلیور کر سکیں۔
         </div>
 
         <form id="codOrderForm">
