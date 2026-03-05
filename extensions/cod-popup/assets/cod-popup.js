@@ -54,22 +54,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const messagePopup = document.querySelector("#message-popup");
   const messageText = document.querySelector("#message-text");
   const messageClose = document.querySelector("#message-close");
+  const messageIcon = document.querySelector(".message-icon");
+  const messageHeading = document.querySelector(".message-heading");
   document.body.appendChild(messagePopup);
 
-  function showMessage(type, text, duration = 8000) {
+  const successIcon = `
+    <svg viewBox="0 0 24 24" width="50" height="50" fill="currentColor">
+      <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm4.78 7.7l-5.67 5.67a.75.75 0 0 1-1.06 0l-2.83-2.83a.75.75 0 1 1 1.06-1.06l2.3 2.3 5.14-5.14a.75.75 0 1 1 1.06 1.06z"/>
+    </svg>
+    `;
+  const errorIcon = `
+    <svg viewBox="0 0 24 24" width="50" height="50" fill="currentColor">
+      <path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2zm3.53 13.53a.75.75 0 0 1-1.06 0L12 13.06l-2.47 2.47a.75.75 0 0 1-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 1 1 1.06-1.06L12 10.94l2.47-2.47a.75.75 0 1 1 1.06 1.06L13.06 12l2.47 2.47a.75.75 0 0 1 0 1.06z"/>
+    </svg>
+    `;
+  function showMessage(type, text) {
     messageText.textContent = text;
 
     const box = messagePopup.querySelector(".message-box");
     box.classList.remove("success", "error", "info");
     box.classList.add(type);
-
+    // Inject correct icon
+    if (type === "success") {
+      messageIcon.innerHTML = successIcon;
+      messageHeading.textContent = "Success";
+    } else {
+      messageIcon.innerHTML = errorIcon;
+      messageHeading.textContent = "Error";
+    }
     messagePopup.classList.add("show");
-
-    clearTimeout(messagePopup.timer);
-
-    messagePopup.timer = setTimeout(() => {
-      messagePopup.classList.remove("show");
-    }, duration);
   }
 
   messageClose.addEventListener("click", () => {
